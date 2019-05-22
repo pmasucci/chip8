@@ -1,0 +1,8 @@
+[package]
+name = "chip8"
+version = "0.1.0"
+authors = ["pete <peter.a.masucci@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+getopts = "0.2"
