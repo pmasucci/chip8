@@ -147,8 +147,23 @@ fn find_opcode(code: u16) -> String {
       (code & 0x00f0) >> 4,
       code & 0x000f
     ),
-    // 0xE => "0xE SKIPs not implemented yet",
-    // 0xF => "0xF functions not implemented yet",
+    0xE => match code & 0x00ff {
+      0x9E => format!("{:<9} V{:X}", "SKP", (code & 0x0f00) >> 8),
+      0xA1 => format!("{:<9} V{:X}", "SKNP", (code & 0x0f00) >> 8),
+      _ => "UNIMPLEMENTED".to_string(),
+    },
+    0xF => match code & 0x00ff {
+      0x07 => format!("{:<9} V{:X}, DT", "LD", (code & 0x0f00) >> 8),
+      0x0A => format!("{:<9} V{:X}, K", "LD", (code & 0x0f00) >> 8),
+      0x15 => format!("{:<9} DT, V{:X}", "LD", (code & 0x0f00) >> 8),
+      0x18 => format!("{:<9} ST, V{:X}", "LD", (code & 0x0f00) >> 8),
+      0x1E => format!("{:<9} I, V{:X}", "ADD", (code & 0x0f00) >> 8),
+      0x29 => format!("{:<9} F, V{:X}", "LD", (code & 0x0f00) >> 8),
+      0x33 => format!("{:<9} B, V{:X}", "LD", (code & 0x0f00) >> 8),
+      0x55 => format!("{:<9} [I], V{:X}", "LD", (code & 0x0f00) >> 8),
+      0x65 => format!("{:<9} V{:X}, [I]", "LD", (code & 0x0f00) >> 8),
+      _ => "UNIMPLEMENTED".to_string(),
+    },
     _ => "instruction not recognized".to_string(),
   };
 
