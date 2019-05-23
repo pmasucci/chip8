@@ -1,5 +1,7 @@
 extern crate getopts;
 mod chip;
+mod cpu;
+mod display;
 mod unchip;
 use getopts::Options;
 use std::env;
