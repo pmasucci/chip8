@@ -1,13 +1,18 @@
+use crate::drivers::displayDriver::DisplayDriver;
 const WIDTH: usize = 64;
 const HEIGHT: usize = 32;
 
 pub struct Display {
   pub memory: [u8; 2048],
+  driver: DisplayDriver,
 }
 
 impl Display {
   pub fn new() -> Display {
-    Display { memory: [0; 2048] }
+    Display {
+      memory: [0; 2048],
+      driver: DisplayDriver::new(),
+    }
   }
 
   pub fn set_pixel(&mut self, x: usize, y: usize, on: bool) {
@@ -30,21 +35,22 @@ impl Display {
     let sprite_rows = sprite.len();
     let mut collision = false;
     for row in 0..sprite_rows {
-      let sprite_row = sprite[row] as usize;
+      let sprite_row = sprite[row];
       for sprite_column in 0..8 {
         let new_value = sprite_row >> (7 - sprite_column) & 0x01;
         if new_value == 1 {
           let sprite_x = (x + sprite_column) % WIDTH;
-          let sprite_y = (y + sprite_row) % HEIGHT;
+          let sprite_y = (y + row) % HEIGHT;
           let old_value = self.get_pixel(sprite_x, sprite_y);
           if old_value {
             collision = true;
           }
 
-          self.set_pixel(sprite_column, sprite_row, (new_value == 1) ^ old_value);
+          self.set_pixel(sprite_x, sprite_y, (new_value == 1) ^ old_value);
         }
       }
     }
+    self.driver.display(self.memory);
     return collision;
   }
 }

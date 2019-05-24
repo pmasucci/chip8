@@ -27,7 +27,7 @@ fn read_instruction(buffer: &[u8], pc: usize) {
   let instruction = find_opcode(word);
   println!(
     "{:0>5x} {:02x} {:02x} {}",
-    pc << 8,
+    (pc) << 8,
     word >> 8,
     word & 0x00FF,
     instruction

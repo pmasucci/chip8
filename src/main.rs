@@ -2,6 +2,7 @@ extern crate getopts;
 mod chip;
 mod cpu;
 mod display;
+mod drivers;
 mod unchip;
 use getopts::Options;
 use std::env;
