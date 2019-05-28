@@ -6,7 +6,7 @@ use std::path::Path;
 
 pub struct Cpu {
   ram: [u8; 4096],
-  display: Display,
+  pub display: Display,
   v: [u8; 16],
   dt: u8,
   st: u8,

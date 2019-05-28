@@ -7,3 +7,7 @@ edition = "2018"
 [dependencies]
 getopts = "0.2"
 rand = "0.6"
+piston = "0.43"
+piston2d-graphics = "0.32"
+pistoncore-glutin_window = "0.55"
+piston2d-opengl_graphics = "0.62"

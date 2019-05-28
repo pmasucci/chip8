@@ -1,18 +1,13 @@
-use crate::drivers::displayDriver::DisplayDriver;
 const WIDTH: usize = 64;
 const HEIGHT: usize = 32;
 
 pub struct Display {
   pub memory: [u8; 2048],
-  driver: DisplayDriver,
 }
 
 impl Display {
   pub fn new() -> Display {
-    Display {
-      memory: [0; 2048],
-      driver: DisplayDriver::new(),
-    }
+    Display { memory: [0; 2048] }
   }
 
   pub fn set_pixel(&mut self, x: usize, y: usize, on: bool) {
@@ -50,7 +45,6 @@ impl Display {
         }
       }
     }
-    self.driver.display(self.memory);
     return collision;
   }
 }
